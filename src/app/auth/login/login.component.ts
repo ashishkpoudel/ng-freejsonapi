@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { UserService } from 'src/app/core/services/user.service';
-import { JwtService } from 'src/app/core/services/jwt.service';
 
 @Component({
   selector: 'app-login',
@@ -14,14 +15,18 @@ export class LoginComponent implements OnInit {
 
   constructor (
     private userService: UserService,
-    private jwtService: JwtService
+    private router: Router
   ) {}
 
   ngOnInit() {
   }
 
   login() {
-    this.userService.login(this.email, this.password);
+    this.userService.login(this.email, this.password)
+      .subscribe(
+        data => { this.router.navigateByUrl('/'); },
+        error => { alert(error); }
+      );
   }
 
 }

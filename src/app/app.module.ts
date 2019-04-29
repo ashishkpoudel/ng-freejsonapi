@@ -11,8 +11,9 @@ import { LoginComponent } from './auth/login/login.component';
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
+  { path: 'post', loadChildren: './post/post.module#PostModule' },
+  { path: 'login', component: LoginComponent },
   { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent }
 ];
 
 @NgModule({
@@ -26,7 +27,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     FormsModule,
     AppRoutingModule,
-    CoreModule
+    CoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

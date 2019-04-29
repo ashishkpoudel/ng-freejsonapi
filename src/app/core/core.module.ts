@@ -4,7 +4,9 @@ import { CommonModule } from '@angular/common';
 
 import { 
   UserService, 
-  JwtService 
+  JwtService,
+  ApiService,
+  PostService
 } from './services';
 
 @NgModule({
@@ -15,7 +17,9 @@ import {
   ],
   providers: [
     UserService,
-    JwtService
+    JwtService,
+    ApiService,
+    PostService
   ]
 })
 export class CoreModule { }

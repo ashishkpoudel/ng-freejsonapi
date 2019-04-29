@@ -1,0 +1,11 @@
+.post-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 25px;
+}
+
+.post-card {
+    padding: 15px;
+    background: #fff;
+    border: 1px solid #ccc;
+}
