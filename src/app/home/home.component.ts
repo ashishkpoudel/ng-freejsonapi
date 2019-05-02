@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Post } from 'src/app/core/models/post.model';
-import { PostService } from 'src/app/core/services/post.service';;
+import { Post, PostService, UserService } from 'src/app/core';
 
 @Component({
   selector: 'app-home',
@@ -13,11 +12,16 @@ export class HomeComponent implements OnInit {
   posts: Post[];
 
   constructor(
-    private postService: PostService
+    private postService: PostService,
+    private userSerivce: UserService
   ) { }
 
   ngOnInit() {
     this.postService.getPosts().subscribe(posts => { this.posts = posts });
+  }
+
+  getCurrentUser() {
+    alert(this.userSerivce.getCurrentUser().name);
   }
 
 }

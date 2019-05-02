@@ -25,6 +25,9 @@ export class UserService {
         this.isAuthenticatedSubject.next(true);
     }
 
+    // Verify JWT in localstorage with server & load user's info.
+    // This runs once on application startup.
+    
     populate() {
         if (this.jwtService.getToken()) {
             this.apiService.get('/me').subscribe(
@@ -32,7 +35,6 @@ export class UserService {
                 err => { this.purgeAuth() }
             );
         } else {
-            // Remove any potential remnants of previous auth states
             this.purgeAuth();
         }
     }
@@ -45,6 +47,10 @@ export class UserService {
                     this.populate();
                 }
             ));
+    }
+
+    getCurrentUser(): User {
+        return this.currentUserSubject.value;
     }
 
     purgeAuth() {

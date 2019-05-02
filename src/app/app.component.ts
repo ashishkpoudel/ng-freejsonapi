@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { UserService } from 'src/app/core';
 
@@ -7,12 +7,12 @@ import { UserService } from 'src/app/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'ng-freejsonapi';
 
   constructor(private userService: UserService) {}
 
-  handleClick() {
-    this.userService.currentUser.subscribe(data => { alert(data.name); });
+  ngOnInit() {
+    this.userService.populate();
   }
 }
