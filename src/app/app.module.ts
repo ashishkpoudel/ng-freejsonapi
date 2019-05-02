@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
 import { CoreModule } from './core/core.module';
+import { AuthGuardService } from './core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +14,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 const routes: Routes = [
   { path: 'post', loadChildren: './post/post.module#PostModule' },
   { path: 'auth', loadChildren: './auth/auth.module#AuthModule' },
+  { path: 'manage', loadChildren: './manage/manage.module#ManageModule', canLoad: [AuthGuardService] },
   { path: '', component: HomeComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
