@@ -1,12 +1,17 @@
 <form>
+<div *ngIf="loginFailed">
+  <h5>Login Failed</h5>
+</div>
 <div>
   <div>
     <label for="email">Email</label>
     <input [(ngModel)]="email" type="email" name="email" id="email">
+    <div><small *ngIf="errors?.email">{{errors.email}}</small></div>
   </div>
   <div>
     <label for="email">Password</label>
     <input [(ngModel)]="password" type="password" name="password" id="password">
+    <div><small *ngIf="errors?.password">{{errors.password}}</small></div>
   </div>
   <div>
     <button type="submit" (click)="login()">Login</button>

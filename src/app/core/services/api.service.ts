@@ -15,8 +15,7 @@ export class ApiService {
     ) {}
 
     private handleErrors(error: HttpErrorResponse) {
-        console.log(error);
-        return throwError('There is a problem with the service');
+        return throwError(error);
     }
 
     get(path: string, params: HttpParams = new HttpParams()): Observable<any> {

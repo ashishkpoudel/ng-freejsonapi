@@ -13,6 +13,9 @@ export class LoginComponent implements OnInit {
   email: string;
   password: string;
 
+  errors = {};
+  loginFailed: boolean = false;
+
   constructor (
     private userService: UserService,
     private router: Router
@@ -22,10 +25,21 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.errors = {};
+    this.loginFailed = false;
+
     this.userService.login(this.email, this.password)
       .subscribe(
         data => { this.router.navigateByUrl('/'); },
-        error => { alert(error); }
+        error => { 
+          if (error.status === 401) {
+            this.loginFailed = true;
+          }
+
+          if (error.status === 422) {
+            this.errors = error.error.errors;
+          }
+        }
       );
   }
 
