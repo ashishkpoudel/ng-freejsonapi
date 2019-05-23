@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+
 import { CoreModule } from './core/core.module';
 import { AuthGuardService } from './core';
 
@@ -28,6 +30,7 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
+    PaginationModule.forRoot(),
     FormsModule,
     AppRoutingModule,
     CoreModule,

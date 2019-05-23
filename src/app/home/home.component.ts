@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-import { Post, PostService, UserService } from 'src/app/core';
+import { Post, Pagination, PostService, UserService } from 'src/app/core';
 
 @Component({
   selector: 'app-home',
@@ -10,18 +9,33 @@ import { Post, PostService, UserService } from 'src/app/core';
 export class HomeComponent implements OnInit {
 
   posts: Post[];
+  posts_pagination: Pagination = new Pagination();
+  posts_params = {page: 1};
 
-  constructor(
+  constructor (
     private postService: PostService,
     private userSerivce: UserService
   ) { }
 
   ngOnInit() {
-    this.postService.getPosts().subscribe(posts => { this.posts = posts });
+    this.getPosts();
+  }
+
+  getPosts() {
+    this.postService.getPosts(this.posts_params).subscribe (
+      data => {
+        this.posts = data.posts;
+        this.posts_pagination = data.pagination;
+      }
+    )
   }
 
   getCurrentUser() {
     alert(this.userSerivce.getCurrentUser().name);
   }
 
+  pageChanged(event: any) {
+    this.posts_params = {...this.posts_params, page: event.page};
+    this.getPosts();
+  }
 }
