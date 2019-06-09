@@ -8,13 +8,16 @@ import { ApiService } from './api.service';
 
 @Injectable()
 export class PostService {
-    
-    constructor ( private apiService: ApiService ) { }
 
-    getPosts(params = {}): Observable<{posts: Post[], pagination : Pagination}> {
+    constructor(private apiService: ApiService) { }
+
+    getPosts(params = {}): Observable<{posts: Post[], pagination: Pagination}> {
         return this.apiService.get('/posts', new HttpParams({fromObject: params})).pipe (
-            map(response => { 
-                return {posts: response.data.map(post => Post.fromJson(post)), pagination: Pagination.fromJson(response.meta.pagination)}
+            map(response => {
+                return {
+                  posts: response.data.map(post => Post.fromJson(post)),
+                  pagination: Pagination.fromJson(response.meta.pagination)
+                };
             })
         );
     }
@@ -24,8 +27,8 @@ export class PostService {
             .pipe(map(response => { return Post.fromJson(response.data); }));
     }
 
-    create(post: Object): Observable<Post> {
+    create(post: object): Observable<Post> {
         return this.apiService.post('/posts', post)
-            .pipe(map(response => { return response.data; }));
+            .pipe(map(response => response.data));
     }
 }

@@ -8,38 +8,52 @@ import { PostService } from 'src/app/core';
   styleUrls: ['./post-create.component.css']
 })
 export class PostCreateComponent implements OnInit {
-  
-  post_form: FormGroup;
-  post_errors: {};
+
+  postForm: FormGroup;
+  postErrors: {};
 
   constructor (
-    private form_builder: FormBuilder, 
-    private post_service: PostService
+    private formBuilder: FormBuilder,
+    private postService: PostService
   ) { }
 
   ngOnInit() {
-    this.post_form = this.form_builder.group({
-      title: ['', Validators.required],
-      featured_image: ['', Validators.required],
-      body: ['', Validators.required],
+    this.postForm = this.formBuilder.group({
+      title: [null, Validators.required],
+      featured_image: [null, Validators.required],
+      body: [null, Validators.required],
     });
   }
 
   createPost() {
-    const post = {
-      title: this.post_form.get('title').value,
-      featured_image: this.post_form.get('featured_image').value,
-      body: this.post_form.get('body').value
-    };
+    const post: FormData = new FormData();
+    post.append('title', this.postForm.get('title').value);
+    post.append('featured_image', this.postForm.get('featured_image').value);
+    post.append('body', this.postForm.get('body').value);
 
-    this.post_service.create(post).subscribe (
+    console.log(post);
+
+    this.postService.create(post).subscribe (
       data => console.log(data),
-      error => { 
-        if (error.status == 422) {
-          this.post_errors = error.error.errors;
+        error => {
+        if (error.status === 422) {
+          this.postErrors = error.error.errors;
+        }
+      }
+    );
+
+    this.postService.create(post).subscribe (
+      data => console.log(data),
+        error => {
+        if (error.status === 422) {
+          this.postErrors = error.error.errors;
         }
       }
     );
   }
 
+  onFeaturedImageChange(event: any) {
+    const file: File = event.target.files[0];
+    this.postForm.patchValue({featured_image: file});
+  }
 }

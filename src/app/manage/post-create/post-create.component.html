@@ -1,22 +1,22 @@
-<form [formGroup]="post_form">
+<form [formGroup]="postForm">
 <div>
   <div>
     <label for="title">Title</label>
     <input type="text" name="title" formControlName="title">
-    <span *ngIf="post_errors?.title">{{post_errors.title}}</span>
+    <span *ngIf="postErrors?.title">{{postErrors.title}}</span>
   </div>
   <div>
     <label for="featured_image">Featured Image</label>
-    <input type="file" name="featured_image" formControlName="featured_image">
-    <small *ngIf="post_errors?.featured_image">{{post_errors.featured_image}}</small>
+    <input type="file" name="featured_image" (change)="onFeaturedImageChange($event)">
+    <small *ngIf="postErrors?.featured_image">{{postErrors.featured_image}}</small>
   </div>
   <div>
     <label for="body">Body</label>
     <textarea name="body" formControlName="body"></textarea>
-    <small *ngIf="post_errors?.body">{{post_errors.body}}</small>
+    <small *ngIf="postErrors?.body">{{postErrors.body}}</small>
   </div>
   <div>
-    <button type="submit" (click)="createPost()" [disabled]="! post_form.valid">Save</button>
+    <button type="submit" (click)="createPost()" [disabled]="! postForm.valid">Save</button>
   </div>
 </div>
 </form>

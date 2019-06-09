@@ -23,10 +23,10 @@ export class ApiService {
             .pipe(catchError((error) => this.handleErrors(error)));
     }
 
-    post(path: string, body: Object = {}): Observable<any> {
+    post(path: string, body: object): Observable<any> {
         const headers = {headers: new HttpHeaders({'Content-Type': 'application/json'}) };
 
-        return this.httpClient.post<any> (`${environment.api_url}${path}`, JSON.stringify(body), headers)
+        return this.httpClient.post<any> (`${environment.api_url}${path}`, body)
             .pipe(catchError((error) => this.handleErrors(error)));
     }
 }
