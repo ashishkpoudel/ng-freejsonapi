@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 
-import { CoreModule } from './core/core.module';
+import { CoreModule } from './core';
 import { AuthGuardService } from './core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,9 +14,9 @@ import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
-  { path: 'post', loadChildren: './post/post.module#PostModule' },
-  { path: 'auth', loadChildren: './auth/auth.module#AuthModule' },
-  { path: 'manage', loadChildren: './manage/manage.module#ManageModule', canLoad: [AuthGuardService] },
+  { path: 'post', loadChildren: () => import('./post/post.module').then(m => m.PostModule) },
+  { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
+  { path: 'manage', loadChildren: () => import('./manage/manage.module').then(m => m.ManageModule), canLoad: [AuthGuardService] },
   { path: '', component: HomeComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -38,4 +38,4 @@ const routes: Routes = [
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
