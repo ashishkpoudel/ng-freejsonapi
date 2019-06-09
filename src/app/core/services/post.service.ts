@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpParams } from '@angular/common/http';
+import { HttpParams, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -9,7 +9,7 @@ import { ApiService } from './api.service';
 @Injectable()
 export class PostService {
 
-    constructor(private apiService: ApiService) { }
+    constructor(private apiService: ApiService, private  httpClient: HttpClient) { }
 
     getPosts(params = {}): Observable<{posts: Post[], pagination: Pagination}> {
         return this.apiService.get('/posts', new HttpParams({fromObject: params})).pipe (

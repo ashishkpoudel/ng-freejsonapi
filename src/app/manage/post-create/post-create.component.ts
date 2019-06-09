@@ -31,17 +31,6 @@ export class PostCreateComponent implements OnInit {
     post.append('featured_image', this.postForm.get('featured_image').value);
     post.append('body', this.postForm.get('body').value);
 
-    console.log(post);
-
-    this.postService.create(post).subscribe (
-      data => console.log(data),
-        error => {
-        if (error.status === 422) {
-          this.postErrors = error.error.errors;
-        }
-      }
-    );
-
     this.postService.create(post).subscribe (
       data => console.log(data),
         error => {

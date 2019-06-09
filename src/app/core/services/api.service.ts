@@ -24,8 +24,6 @@ export class ApiService {
     }
 
     post(path: string, body: object): Observable<any> {
-        const headers = {headers: new HttpHeaders({'Content-Type': 'application/json'}) };
-
         return this.httpClient.post<any> (`${environment.api_url}${path}`, body)
             .pipe(catchError((error) => this.handleErrors(error)));
     }

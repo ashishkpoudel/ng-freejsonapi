@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
         this.posts = data.posts;
         this.posts_pagination = data.pagination;
       }
-    )
+    );
   }
 
   getCurrentUser() {

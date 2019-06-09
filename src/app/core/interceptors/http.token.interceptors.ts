@@ -3,6 +3,7 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/c
 import { Observable } from 'rxjs';
 
 import { JwtService } from '../services';
+import {hostReportError} from 'rxjs/internal-compatibility';
 
 @Injectable()
 export class HttpTokenInterceptor implements HttpInterceptor {
@@ -10,10 +11,13 @@ export class HttpTokenInterceptor implements HttpInterceptor {
     constructor(private jwtService: JwtService) {}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const headers = {
-            'Content-Type': 'application/json',
+        let headers = {
             'Accept': 'application/json'
         };
+
+        if (req.body instanceof FormData === false) {
+          headers['Content-Type'] = 'application/json';
+        }
 
         const token = this.jwtService.getToken();
 
